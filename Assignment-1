@@ -47,4 +47,34 @@ create table sales_order_csv
 load data inpath 'sales_order.csv' into table sales_order_csv;
 
 #Create an internal hive table which will store data in ORC format "sales_order_orc"
+create table sales_order_orc_final                                                                                                            
+    (                                                                                                                                       
+    ORDERNUMBER INT,  
+    QUANTITYORDERED INT,
+    PRICEEACH FLOAT,
+    ORDERLINENUMBER INT,
+    SALES INT,
+    STATUS STRING,
+    QTR_ID STRING,
+    MONTH_ID INT,
+    MONTH_ID INT,
+    YEAR_ID INT,
+    PRODUCTLINE STRING,
+    MSRP INT,
+    PRODUCTCODE VARCHAR,
+    PHONE STRING,
+    CITY STRING,
+    STATE STRING,
+    POSTALCODE VARCHAR,
+    COUNTRY STRING,
+    TERRITORY STRING,
+    CONTACTLASTNAME STRING,
+    CONTACTFIRSTNAME STRING,
+    DEALSIZE STRING
+    )                                                                                                                             
+    stored as orc;  
+
+#Load data from "sales_order_csv" into "sales_order_orc"
+from sales_order_csv insert overwrite table sales_order_orc select *;
+
 
