@@ -1,0 +1,50 @@
+ #Downloaded vechile sales data from given URL https://github.com/shashank-mishra219/Hive-Class/blob/main/sales_order_data.csv as raw and saved it as sales_order.csv on system disk space.
+#Using filezilla moved it from local storage to cloud era.
+
+#To move file from local to HDFS 
+hadoop fs -copyFromLocal /home/cloudera/sales_order.csv
+
+#To start hive
+hive
+
+#To Create a db
+create database salesOrderDB;
+
+#to go to the database
+use salesOrderDB;
+
+#to create internal hive table "sales_order_csv" which will store csv data sales_order_csv .. without header row while creating table
+
+create table sales_order_csv                                                                                                            
+    (                                                                                                                                       
+    ORDERNUMBER INT,  
+    QUANTITYORDERED INT,
+    PRICEEACH FLOAT,
+    ORDERLINENUMBER INT,
+    SALES INT,
+    STATUS STRING,
+    QTR_ID STRING,
+    MONTH_ID INT,
+    MONTH_ID INT,
+    YEAR_ID INT,
+    PRODUCTLINE STRING,
+    MSRP INT,
+    PRODUCTCODE VARCHAR,
+    PHONE STRING,
+    CITY STRING,
+    STATE STRING,
+    POSTALCODE VARCHAR,
+    COUNTRY STRING,
+    TERRITORY STRING,
+    CONTACTLASTNAME STRING,
+    CONTACTFIRSTNAME STRING,
+    DEALSIZE STRING
+    )                                                                                                                             
+    row format delimited                                                                                                                    
+    fields terminated by ',';  
+    
+# Load data from hdfs path into "sales_order_csv" 
+load data inpath 'sales_order.csv' into table sales_order_csv;
+
+#Create an internal hive table which will store data in ORC format "sales_order_orc"
+
