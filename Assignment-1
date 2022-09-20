@@ -94,4 +94,12 @@ select country, min(sales) from sales_order_orc group by country order by countr
 #Calculate quartelry sales for each city
 
 #Find a month for each year in which maximum number of quantities were sold
+create table max_quantities                                                                                      
+(                                                                                                                       
+QUANTITYORDERED int,
+month_id int
+)
+partitioned by (YEAR_ID int);
 
+insert overwrite table max_quantities partition(year_id) select quantityordered,month_id,year_id from sales_or
+der_orc;
