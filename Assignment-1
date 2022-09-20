@@ -88,11 +88,10 @@ select productcode, max(sales) as max_sales from sales_order_orc group by produc
 
 
 #In which country sales was maximum and in which country sales was minimum
-
+select country, max(sales) from sales_order_orc group by country order by country limit 1;
+select country, min(sales) from sales_order_orc group by country order by country limit 1;
 
 #Calculate quartelry sales for each city
 
 #Find a month for each year in which maximum number of quantities were sold
-
-
 
