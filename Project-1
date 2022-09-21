@@ -1,0 +1,75 @@
+#Create a schema based on the given dataset
+create table agent_performance
+(
+SL_No int,
+date string,
+agentname string,
+totalchats string,
+average_responsetime string,
+average_resolutiontime string,
+average_rating string,
+total_feedback int
+)
+row format delimited
+fields terminated by ','
+tblproperties("skip.header.line.count"="1");
+
+create table agent_logging_report
+(
+SL_No int,
+agent string,
+date string,
+logintime string,
+logouttime string,
+duration string
+)
+row format delimited,
+fields terminated by ','
+tblproperties("skip.header.line.count"="1");
+
+ #Dump the data inside the hdfs in the given schema location.
+ load data inpath /cloudera/users/agentPerformance.csv into table agent_performance;
+ load data inpath /cloudera/users/agentLoggingReport.csv into table agent_logging_report;
+ 
+ #List of all agents' names.
+ select unique(agentName) from agent_performance;
+ 
+ #Find out agent average rating.
+ select agentname, average_rating from agent_performance;
+ 
+ #Total working days for each agents
+ 
+ #Total query that each agent have taken 
+ select agentname, count(totalchats) from agent_performance;
+ 
+ #Total Feedback that each agent have received 
+ select agentname,total_feedback from agent_performance;
+ 
+ #Agent name who have average rating between 3.5 to 4 
+ select agentname, average_rating from agent_performance where average_rating between 3.5 and 4;
+ 
+ #Agent name who have rating less than 3.5 
+ select agentname, average_rating from agent_performance where average_rating < 3.5;
+ 
+ #Agent name who have rating more than 4.5 
+ select agentname, average_rating from agent_performance where average_rating > 4.5;
+ 
+ #How many feedback agents have received more than 4.5 average
+ select sum(agentname) from agent_performance where average_rating > 4.5;
+
+#average weekly response time for each agent
+
+#average weekly resolution time for each agents
+
+#Find the number of chat on which they have received a feedback
+select agentname, count(total_feedback) from agent_performance where total_feedback != 0;
+
+
+#Total contribution hour for each and every agents weekly basis
+
+
+#Perform inner join, left join and right join based on the agent column and after joining the table export that data into your local system.
+
+#Perform partitioning on top of the agent column and then on top of that perform bucketing for each partitioning.
+
+
