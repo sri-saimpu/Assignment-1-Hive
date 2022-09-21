@@ -103,3 +103,9 @@ partitioned by (YEAR_ID int);
 
 insert overwrite table max_quantities partition(year_id) select quantityordered,month_id,year_id from sales_or
 der_orc;
+
+
+
+
+
+
